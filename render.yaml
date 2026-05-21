@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: loan-recovery-system
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn config.wsgi:application"
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: config.settings
