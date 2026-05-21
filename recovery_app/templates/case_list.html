@@ -1,0 +1,467 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Recovery Cases</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <!-- TOP BAR -->
+
+        <div class="top-bar">
+
+            <!-- LEFT SIDE -->
+
+            <div class="badge">
+
+                Recovery Data
+
+            </div>
+
+            <!-- RIGHT SIDE -->
+
+            <div style="
+            display:flex;
+            align-items:center;
+            gap:18px;
+            flex-wrap:wrap;
+            ">
+
+                <!-- DASHBOARD BUTTON -->
+
+                <a href="{% url 'dashboard' %}"
+                   style="
+                   background:#7c3aed;
+                   color:white;
+                   padding:14px 24px;
+                   border-radius:14px;
+                   text-decoration:none;
+                   font-weight:600;
+                   display:flex;
+                   align-items:center;
+                   justify-content:center;
+                   min-width:200px;
+                   height:52px;
+                   box-shadow:0 4px 14px rgba(0,0,0,0.2);
+                   ">
+
+                    Analytics Dashboard
+
+                </a>
+
+                <!-- ADD CASE BUTTON -->
+
+                <a href="{% url 'add_case' %}"
+                   style="
+                   background:#16a34a;
+                   color:white;
+                   padding:14px 24px;
+                   border-radius:14px;
+                   text-decoration:none;
+                   font-weight:600;
+                   display:flex;
+                   align-items:center;
+                   justify-content:center;
+                   min-width:190px;
+                   height:52px;
+                   box-shadow:0 4px 14px rgba(0,0,0,0.2);
+                   ">
+
+                    + Add New Case
+
+                </a>
+
+                <!-- LOGOUT BUTTON -->
+
+                <a href="{% url 'logout' %}"
+                   style="
+                   background:#ef4444;
+                   color:white;
+                   padding:14px 24px;
+                   border-radius:14px;
+                   text-decoration:none;
+                   font-weight:600;
+                   display:flex;
+                   align-items:center;
+                   justify-content:center;
+                   min-width:120px;
+                   height:52px;
+                   box-shadow:0 4px 14px rgba(0,0,0,0.2);
+                   ">
+
+                    Logout
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- HEADER -->
+
+        <h1>
+
+            Recovery Cases
+
+        </h1>
+
+        <p class="subtitle">
+
+            Dynamic Recovery Case Records
+
+        </p>
+
+        <!-- SEARCH FILTERS -->
+
+        <form method="GET">
+
+            <div style="
+                display:flex;
+                gap:15px;
+                margin-bottom:30px;
+                flex-wrap:wrap;
+                align-items:center;
+            ">
+
+                <!-- VEHICLE SEARCH -->
+
+                <input type="text"
+                       name="vehicle_number"
+                       placeholder="Search Vehicle Number"
+                       value="{{ request.GET.vehicle_number }}"
+                       style="
+                       padding:15px;
+                       border:none;
+                       border-radius:14px;
+                       width:280px;
+                       background:#1e293b;
+                       color:white;
+                       outline:none;
+                       font-size:14px;
+                       ">
+
+                <!-- CUSTOMER SEARCH -->
+
+                <input type="text"
+                       name="customer_name"
+                       placeholder="Search Customer Name"
+                       value="{{ request.GET.customer_name }}"
+                       style="
+                       padding:15px;
+                       border:none;
+                       border-radius:14px;
+                       width:280px;
+                       background:#1e293b;
+                       color:white;
+                       outline:none;
+                       font-size:14px;
+                       ">
+
+                <!-- SEARCH BUTTON -->
+
+                <button type="submit"
+                        style="
+                        background:#2563eb;
+                        color:white;
+                        border:none;
+                        padding:15px 26px;
+                        border-radius:14px;
+                        cursor:pointer;
+                        font-weight:bold;
+                        transition:0.3s;
+                        ">
+
+                    Search
+
+                </button>
+
+                <!-- RESET BUTTON -->
+
+                <a href="{% url 'case_list' %}"
+                   style="
+                   background:#dc2626;
+                   color:white;
+                   padding:15px 26px;
+                   border-radius:14px;
+                   text-decoration:none;
+                   font-weight:bold;
+                   ">
+
+                    Reset
+
+                </a>
+
+            </div>
+
+        </form>
+
+        <!-- TABLE -->
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Vehicle No</th>
+
+                        <th>Customer Name</th>
+
+                        <th>Phone No</th>
+
+                        <th>Customer Amount</th>
+
+                        <th>Agent Name</th>
+
+                        <th>Agent Pay</th>
+
+                        <th>Status</th>
+
+                        <th>Date</th>
+
+                        <th>Created By</th>
+
+                        <th>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for case in cases %}
+
+                    <tr>
+
+                        <!-- VEHICLE -->
+
+                        <td style="
+                        font-weight:bold;
+                        color:#f8fafc;
+                        ">
+
+                            {{ case.vehicle_number }}
+
+                        </td>
+
+                        <!-- CUSTOMER -->
+
+                        <td>
+
+                            {{ case.customer_name }}
+
+                        </td>
+
+                        <!-- PHONE -->
+
+                        <td>
+
+                            {{ case.phone_number }}
+
+                        </td>
+
+                        <!-- CUSTOMER AMOUNT -->
+
+                        <td style="
+                        color:#4ade80;
+                        font-weight:bold;
+                        ">
+
+                            ₹ {{ case.customer_amount }}
+
+                        </td>
+
+                        <!-- AGENT -->
+
+                        <td>
+
+                            {{ case.agent_name }}
+
+                        </td>
+
+                        <!-- AGENT PAY -->
+
+                        <td style="
+                        color:#f97316;
+                        font-weight:bold;
+                        ">
+
+                            ₹ {{ case.agent_pay }}
+
+                        </td>
+
+                        <!-- STATUS -->
+
+                        <td>
+
+                            {% if case.recovery_status == 'Customer Payment' %}
+
+                            <span style="
+                            background:rgba(34,197,94,0.15);
+                            color:#4ade80;
+                            padding:8px 14px;
+                            border-radius:20px;
+                            font-size:12px;
+                            font-weight:bold;
+                            ">
+
+                                {{ case.recovery_status }}
+
+                            </span>
+
+                            {% elif case.recovery_status == 'Released' %}
+
+                            <span style="
+                            background:rgba(37,99,235,0.15);
+                            color:#60a5fa;
+                            padding:8px 14px;
+                            border-radius:20px;
+                            font-size:12px;
+                            font-weight:bold;
+                            ">
+
+                                {{ case.recovery_status }}
+
+                            </span>
+
+                            {% else %}
+
+                            <span style="
+                            background:rgba(239,68,68,0.15);
+                            color:#f87171;
+                            padding:8px 14px;
+                            border-radius:20px;
+                            font-size:12px;
+                            font-weight:bold;
+                            ">
+
+                                {{ case.recovery_status }}
+
+                            </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <!-- DATE -->
+
+                        <td>
+
+                            {{ case.payment_date }}
+
+                        </td>
+
+                        <!-- CREATED BY -->
+
+                        <td style="
+                        color:#cbd5e1;
+                        font-weight:bold;
+                        ">
+
+                            {{ case.created_by }}
+
+                        </td>
+
+                        <!-- ACTIONS -->
+
+                        <td>
+
+                            <div style="
+                            display:flex;
+                            gap:10px;
+                            flex-wrap:wrap;
+                            ">
+
+                                <!-- EDIT -->
+
+                                <a href="{% url 'edit_case' case.id %}"
+                                   style="
+                                   background:#2563eb;
+                                   color:white;
+                                   padding:10px 16px;
+                                   border-radius:10px;
+                                   text-decoration:none;
+                                   font-size:13px;
+                                   font-weight:bold;
+                                   ">
+
+                                    Edit
+
+                                </a>
+
+                                <!-- DELETE -->
+
+                                <a href="{% url 'delete_case' case.id %}"
+                                   onclick="return confirm('Delete this case?')"
+                                   style="
+                                   background:#dc2626;
+                                   color:white;
+                                   padding:10px 16px;
+                                   border-radius:10px;
+                                   text-decoration:none;
+                                   font-size:13px;
+                                   font-weight:bold;
+                                   ">
+
+                                    Delete
+
+                                </a>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="10"
+                            style="
+                            text-align:center;
+                            padding:40px;
+                            color:#94a3b8;
+                            font-size:16px;
+                            ">
+
+                            No recovery cases found.
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

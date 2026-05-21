@@ -1,0 +1,311 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Analytics Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <!-- TOP BAR -->
+
+        <div class="top-bar">
+
+            <div class="badge">
+
+                Recovery Analytics Dashboard
+
+            </div>
+
+            <div style="
+            display:flex;
+            gap:15px;
+            align-items:center;
+            flex-wrap:wrap;
+            ">
+
+                <!-- ADD CASE -->
+
+                <a href="{% url 'add_case' %}"
+                   style="
+                   background:#2563eb;
+                   color:white;
+                   padding:12px 22px;
+                   border-radius:12px;
+                   text-decoration:none;
+                   font-weight:bold;
+                   ">
+
+                    Add Recovery Case
+
+                </a>
+
+                <!-- VIEW CASES -->
+
+                <a href="{% url 'case_list' %}"
+                   style="
+                   background:#16a34a;
+                   color:white;
+                   padding:12px 22px;
+                   border-radius:12px;
+                   text-decoration:none;
+                   font-weight:bold;
+                   ">
+
+                    View Recovery Cases
+
+                </a>
+
+                <!-- LOGOUT -->
+
+                <a href="{% url 'logout' %}"
+                   class="logout-btn">
+
+                    Logout
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- HEADER -->
+
+        <h1>
+
+            Analytics Dashboard
+
+        </h1>
+
+        <p class="subtitle">
+
+            Real-time Recovery Analytics & Business Insights
+
+        </p>
+
+        <!-- ANALYTICS GRID -->
+
+        <div class="analytics-grid">
+
+            <!-- TOTAL CASES -->
+
+            <div class="analytics-card card-dark">
+
+                <h3>Total Recovery Cases</h3>
+
+                <h1>
+
+                    {{ total_cases }}
+
+                </h1>
+
+            </div>
+
+            <!-- TOTAL RECOVERY -->
+
+            <div class="analytics-card card-green">
+
+                <h3>Total Recovery Amount</h3>
+
+                <h1>
+
+                    ₹ {{ total_customer_amount }}
+
+                </h1>
+
+            </div>
+
+            <!-- TOTAL AGENT PAY -->
+
+            <div class="analytics-card card-orange">
+
+                <h3>Total Agent Pay</h3>
+
+                <h1>
+
+                    ₹ {{ total_agent_pay }}
+
+                </h1>
+
+            </div>
+
+            <!-- RELEASED -->
+
+            <div class="analytics-card card-blue">
+
+                <h3>Released Cases</h3>
+
+                <h1>
+
+                    {{ released_cases }}
+
+                </h1>
+
+            </div>
+
+            <!-- GODOWNED -->
+
+            <div class="analytics-card card-red">
+
+                <h3>Godowned Cases</h3>
+
+                <h1>
+
+                    {{ godowned_cases }}
+
+                </h1>
+
+            </div>
+
+            <!-- CUSTOMER PAYMENT -->
+
+            <div class="analytics-card card-teal">
+
+                <h3>Customer Payments</h3>
+
+                <h1>
+
+                    {{ customer_payment_cases }}
+
+                </h1>
+
+            </div>
+
+        </div>
+
+        <!-- SUMMARY SECTION -->
+
+        <div style="
+        margin-top:40px;
+        background:rgba(255,255,255,0.05);
+        border-radius:20px;
+        padding:30px;
+        ">
+
+            <h2 style="
+            margin-bottom:25px;
+            font-size:28px;
+            ">
+
+                Business Summary
+
+            </h2>
+
+            <div style="
+            display:grid;
+            grid-template-columns:
+            repeat(auto-fit,minmax(280px,1fr));
+            gap:25px;
+            ">
+
+                <!-- NET RECOVERY -->
+
+                <div style="
+                background:rgba(37,99,235,0.12);
+                padding:25px;
+                border-radius:18px;
+                ">
+
+                    <h3 style="
+                    color:#93c5fd;
+                    margin-bottom:12px;
+                    ">
+
+                        Net Recovery Collection
+
+                    </h3>
+
+                    <h1 style="
+                    color:white;
+                    font-size:36px;
+                    ">
+
+                        ₹ {{ total_customer_amount }}
+
+                    </h1>
+
+                </div>
+
+                <!-- TOTAL EXPENSE -->
+
+                <div style="
+                background:rgba(249,115,22,0.12);
+                padding:25px;
+                border-radius:18px;
+                ">
+
+                    <h3 style="
+                    color:#fdba74;
+                    margin-bottom:12px;
+                    ">
+
+                        Total Agent Expenses
+
+                    </h3>
+
+                    <h1 style="
+                    color:white;
+                    font-size:36px;
+                    ">
+
+                        ₹ {{ total_agent_pay }}
+
+                    </h1>
+
+                </div>
+
+                <!-- ACTIVE CASES -->
+
+                <div style="
+                background:rgba(34,197,94,0.12);
+                padding:25px;
+                border-radius:18px;
+                ">
+
+                    <h3 style="
+                    color:#86efac;
+                    margin-bottom:12px;
+                    ">
+
+                        Active Recovery Cases
+
+                    </h3>
+
+                    <h1 style="
+                    color:white;
+                    font-size:36px;
+                    ">
+
+                        {{ total_cases }}
+
+                    </h1>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

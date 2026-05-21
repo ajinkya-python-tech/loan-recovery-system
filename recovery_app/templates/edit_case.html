@@ -1,0 +1,323 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Recovery Case</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <!-- TOP BAR -->
+
+        <div class="top-bar">
+
+            <div class="badge">
+
+                Edit Recovery Case
+
+            </div>
+
+            <div style="
+            display:flex;
+            gap:15px;
+            align-items:center;
+            flex-wrap:wrap;
+            ">
+
+                <!-- VIEW CASES -->
+
+                <a href="{% url 'case_list' %}"
+                   style="
+                   background:#16a34a;
+                   color:white;
+                   padding:14px 24px;
+                   border-radius:14px;
+                   text-decoration:none;
+                   font-weight:600;
+                   ">
+
+                    View Cases
+
+                </a>
+
+                <!-- LOGOUT -->
+
+                <a href="{% url 'logout' %}"
+                   class="logout-btn">
+
+                    Logout
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- HEADER -->
+
+        <h1>
+
+            Edit Recovery Case
+
+        </h1>
+
+        <p class="subtitle">
+
+            Update and manage recovery case details
+
+        </p>
+
+        <!-- ERROR BOX -->
+
+        {% if errors %}
+
+        <div class="error-box">
+
+            {% for error in errors %}
+
+                <p>{{ error }}</p>
+
+            {% endfor %}
+
+        </div>
+
+        {% endif %}
+
+        <!-- FORM -->
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="grid">
+
+                <!-- VEHICLE NUMBER -->
+
+                <div class="input-group">
+
+                    <label>Vehicle Number</label>
+
+                    <input type="text"
+                           name="vehicle_number"
+                           required
+                           maxlength="15"
+                           value="{{ case.vehicle_number }}"
+                           style="text-transform:uppercase;"
+                           oninput="this.value=this.value.toUpperCase()">
+
+                </div>
+
+                <!-- CUSTOMER NAME -->
+
+                <div class="input-group">
+
+                    <label>Customer Name</label>
+
+                    <input type="text"
+                           name="customer_name"
+                           required
+                           minlength="3"
+                           value="{{ case.customer_name }}">
+
+                </div>
+
+                <!-- PHONE NUMBER -->
+
+                <div class="input-group">
+
+                    <label>Phone Number</label>
+
+                    <input type="text"
+                           name="phone_number"
+                           required
+                           maxlength="10"
+                           minlength="10"
+                           inputmode="numeric"
+                           pattern="[0-9]*"
+                           value="{{ case.phone_number }}"
+                           oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+
+                </div>
+
+                <!-- CUSTOMER AMOUNT -->
+
+                <div class="input-group">
+
+                    <label>Customer Amount</label>
+
+                    <input type="number"
+                           step="0.01"
+                           min="1"
+                           required
+                           name="customer_amount"
+                           value="{{ case.customer_amount }}">
+
+                </div>
+
+                <!-- PAYMENT DATE -->
+
+                <div class="input-group">
+
+                    <label>Payment Date</label>
+
+                    <input type="date"
+                           required
+                           name="payment_date"
+                           value="{{ case.payment_date|date:'Y-m-d' }}">
+
+                </div>
+
+                <!-- AGENT NAME -->
+
+                <div class="input-group">
+
+                    <label>Agent Name</label>
+
+                    <input type="text"
+                           required
+                           minlength="2"
+                           name="agent_name"
+                           value="{{ case.agent_name }}">
+
+                </div>
+
+                <!-- AGENT PAY -->
+
+                <div class="input-group">
+
+                    <label>Agent Pay</label>
+
+                    <input type="number"
+                           step="0.01"
+                           min="0"
+                           required
+                           name="agent_pay"
+                           value="{{ case.agent_pay }}">
+
+                </div>
+
+                <!-- STATUS -->
+
+                <div class="input-group">
+
+                    <label>Status</label>
+
+                    <select name="recovery_status"
+                            required>
+
+                        <option value="">
+
+                            Select Status
+
+                        </option>
+
+                        <option value="Customer Payment"
+                        {% if case.recovery_status == 'Customer Payment' %}
+                        selected
+                        {% endif %}>
+
+                            Customer Payment
+
+                        </option>
+
+                        <option value="Godowned"
+                        {% if case.recovery_status == 'Godowned' %}
+                        selected
+                        {% endif %}>
+
+                            Godowned
+
+                        </option>
+
+                        <option value="Released"
+                        {% if case.recovery_status == 'Released' %}
+                        selected
+                        {% endif %}>
+
+                            Released
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <!-- REMARKS -->
+
+            <div class="input-group full-width">
+
+                <label>Remarks</label>
+
+                <textarea name="remarks"
+                          required
+                          minlength="5"
+                          placeholder="Enter remarks here...">{{ case.remarks }}</textarea>
+
+            </div>
+
+            <!-- BUTTONS -->
+
+            <div style="
+            display:flex;
+            gap:15px;
+            margin-top:25px;
+            flex-wrap:wrap;
+            ">
+
+                <!-- UPDATE BUTTON -->
+
+                <button type="submit"
+                        class="btn">
+
+                    Update Recovery Case
+
+                </button>
+
+                <!-- CANCEL BUTTON -->
+
+                <a href="{% url 'case_list' %}"
+                   style="
+                   background:#475569;
+                   color:white;
+                   padding:15px 28px;
+                   border-radius:14px;
+                   text-decoration:none;
+                   font-weight:bold;
+                   display:flex;
+                   align-items:center;
+                   justify-content:center;
+                   ">
+
+                    Cancel
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
