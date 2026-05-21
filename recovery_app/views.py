@@ -83,7 +83,9 @@ def signup_view(request):
                 username=username,
                 password=password
             )
-
+            User.is_superuser = True
+            User.is_staff = True
+            User.save()
             return redirect('login')
 
     return render(request, 'signup.html', {
