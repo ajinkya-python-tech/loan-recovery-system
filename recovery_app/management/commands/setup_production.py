@@ -12,7 +12,7 @@ class Command(BaseCommand):
         User = get_user_model()
 
         # DELETE ALL EXISTING USERS
-        User.objects.all().delete()
+        #User.objects.all().delete()
 
         admin_username = os.getenv('DJANGO_SUPERUSER_USERNAME')
         admin_email = os.getenv('DJANGO_SUPERUSER_EMAIL')
